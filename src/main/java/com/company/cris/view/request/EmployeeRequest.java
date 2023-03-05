@@ -1,4 +1,6 @@
-package com.company.cris.view;
+package com.company.cris.view.request;
+
+import com.company.cris.view.AddressRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

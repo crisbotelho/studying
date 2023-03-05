@@ -1,6 +1,7 @@
 package com.company.cris.view;
 
 import com.company.cris.service.PostCodeService;
+import com.company.cris.view.response.PostCodeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

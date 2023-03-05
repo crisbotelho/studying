@@ -2,6 +2,7 @@ package com.company.cris.view;
 
 import com.company.cris.entity.Department;
 import com.company.cris.repository.DepartmentRepository;
+import com.company.cris.view.request.DepartmentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,4 +26,5 @@ public class DepartmentController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.company.cris.view;
+package com.company.cris.view.request;
 
 import java.math.BigInteger;
 

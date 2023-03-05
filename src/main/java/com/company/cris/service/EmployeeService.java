@@ -6,7 +6,7 @@ import com.company.cris.entity.Employee;
 import com.company.cris.repository.AddressRepository;
 import com.company.cris.repository.EmployeeRepository;
 import com.company.cris.view.AddressRequest;
-import com.company.cris.view.EmployeeRequest;
+import com.company.cris.view.request.EmployeeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
