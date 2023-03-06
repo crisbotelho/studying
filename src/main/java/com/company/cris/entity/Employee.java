@@ -27,6 +27,17 @@ public class Employee {
 
     public Employee() {}
 
+    public Employee(EmployeeBuilder employeeBuilder) {
+        this.uuid = employeeBuilder.uuid;
+        this.name = employeeBuilder.name;
+        this.cpf = employeeBuilder.cpf;
+        this.birthDate = employeeBuilder.birthDate;
+        this.gender = employeeBuilder.gender;
+        this.salary = employeeBuilder.salary;
+        this.address = employeeBuilder.address;
+        this.supervisor = employeeBuilder.supervisor;
+    }
+
     public Long getId() {
         return id;
     }
@@ -110,5 +121,45 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hash(id, uuid);
+    }
+
+    public static class EmployeeBuilder {
+        private String name;
+        private String cpf;
+        private LocalDate birthDate;
+        private String gender;
+        private BigDecimal salary;
+        private String uuid;
+        private Employee supervisor;
+        private Address address;
+
+        public EmployeeBuilder(String name, String cpf, LocalDate birthDate,
+                               String gender, BigDecimal salary) {
+            this.name = name;
+            this.cpf = cpf;
+            this.birthDate = birthDate;
+            this.gender = gender;
+            this.salary = salary;
+        }
+
+        public EmployeeBuilder setUuid(String uuid) {
+            this.uuid = uuid;
+            return this;
+        }
+
+        public EmployeeBuilder setSupervisor(Employee supervisor) {
+            this.supervisor = supervisor;
+            return this;
+        }
+
+        public EmployeeBuilder setAddress(Address address) {
+            this.address = address;
+            return this;
+        }
+
+        public Employee build() {
+            return new Employee(this);
+        }
+
     }
 }
