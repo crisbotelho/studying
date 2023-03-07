@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
 public class PostCodeServiceTest {
@@ -20,8 +18,8 @@ public class PostCodeServiceTest {
         //arrange
 
         //action
-        ResponseEntity<PostCodeResponse> postCodeResponseResponseEntity = postCodeService.get(POST_CODE);
+        PostCodeResponse postCodeResponse = postCodeService.get(POST_CODE);
         //assert
-        Assertions.assertEquals(HttpStatus.OK, postCodeResponseResponseEntity.getStatusCode());
+        Assertions.assertNotNull(postCodeResponse);
     }
 }

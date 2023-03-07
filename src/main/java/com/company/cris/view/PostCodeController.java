@@ -18,6 +18,6 @@ public class PostCodeController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/{postCode}")
     public ResponseEntity<PostCodeResponse> getDetail(@PathVariable String postCode) {
-        return postCodeService.get(postCode);
+        return ResponseEntity.ok(postCodeService.get(postCode));
     }
 }
