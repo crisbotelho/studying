@@ -25,7 +25,7 @@ public class EmployeeServiceTest {
     @Mock
     private EmployeeRepository employeeRepository;
     @InjectMocks
-    private EmployeeService employeeService;
+    private EmployeeService employeeService = new EmployeeService();
 
     @Test
     public void givenEmployeeRequest_whenSave_thenSaveEmployee() {

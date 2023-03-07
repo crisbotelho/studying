@@ -1,0 +1,31 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    username: cris
+    url: jdbc:mysql://localhost:3306/company
+    password: eamf593284
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,beans,metrics
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 8
+      minimumNumberOfCalls: 4
+      permittedNumberOfCallsInHalfOpenState: 10
+      waitDurationInOpenState: 10000
+      failureRateThreshold: 2
+      eventConsumerBufferSize: 10
+      registerHealthIndicator: true
