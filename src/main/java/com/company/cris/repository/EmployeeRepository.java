@@ -12,5 +12,11 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     public List<Employee> findByName(String name);
 
     @Query("SELECT e FROM Employee as e WHERE e.supervisor.uuid = :uuidSupervisor")
-    public List<Employee> findBySupervisor(@Param("uuidSupervisor") String uuidSupervisor);
+    List<Employee> findBySupervisor(@Param("uuidSupervisor") String uuidSupervisor);
+
+    Boolean existsByCpf(String cpf);
+
+    Employee findByUuid(String uuid);
+
+
 }

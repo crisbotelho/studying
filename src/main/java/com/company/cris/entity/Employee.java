@@ -1,5 +1,7 @@
 package com.company.cris.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.math.BigDecimal;
@@ -18,9 +20,11 @@ public class Employee {
     private String gender;
     private String name;
     private BigDecimal salary;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_SUPERVISOR")
     private Employee supervisor;
+    @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ADDRESS")
     private Address address;

@@ -1,8 +1,8 @@
 package com.company.cris.view;
 
 import com.company.cris.entity.Employee;
-import com.company.cris.repository.EmployeeProjectRepository;
-import com.company.cris.repository.EmployeeRepository;
+import com.company.cris.exception.EmployeeAlreadyExistException;
+import com.company.cris.exception.EmployeeNotFoundException;
 import com.company.cris.service.EmployeeService;
 import com.company.cris.view.request.EmployeeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,39 +15,50 @@ import java.util.List;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-
-    @Autowired
-    private EmployeeProjectRepository employeeProjectRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
     @Autowired
     private EmployeeService employeeService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> save(@RequestBody EmployeeRequest employeeRequest) {
+    public ResponseEntity<String> save(@RequestBody EmployeeRequest employeeRequest)
+            throws EmployeeAlreadyExistException{
         String uuid = employeeService.save(employeeRequest);
 
         return new ResponseEntity<String>(uuid, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/department/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Employee>> listByIdDepartment(@PathVariable Long id) {
-        List<Employee> employeeList = employeeProjectRepository.findAllEmployeeByDepartment(id);
+    public ResponseEntity<List<Employee>> listByIdDepartment(@PathVariable Long id)
+            throws EmployeeNotFoundException {
+        List<Employee> employeeList = employeeService.listByIdDepartment(id);
 
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/name/{name}")
-    public ResponseEntity<List<Employee>> ListByName(@PathVariable String name) {
-        List<Employee> employeeList = employeeRepository.findByName(name);
-
-        return new ResponseEntity<>(employeeList, HttpStatus.OK);
+    public ResponseEntity<List<Employee>> ListByName(@PathVariable String name)
+            throws EmployeeNotFoundException{
+        return ResponseEntity.ok(employeeService.ListByName(name));
     }
 
     @RequestMapping(path = "/supervisor/{uuid}")
-    public ResponseEntity<List<Employee>> ListBySupervisor(@PathVariable String uuidSupervisor) {
-        List<Employee> employeeList = employeeRepository.findBySupervisor(uuidSupervisor);
+    public ResponseEntity<List<Employee>> ListBySupervisor(@PathVariable String uuid)
+            throws EmployeeNotFoundException {
+        return ResponseEntity.ok(employeeService.ListBySupervisor(uuid));
+    }
 
-        return new ResponseEntity<>(employeeList, HttpStatus.OK);
+    @RequestMapping(path = "/{uuid}")
+    public ResponseEntity<Employee> getByUuid(@PathVariable String uuid)
+            throws EmployeeNotFoundException {
+        return ResponseEntity.ok(employeeService.getByUuid(uuid));
+    }
+
+    @ExceptionHandler(value = EmployeeAlreadyExistException.class)
+    public ResponseEntity<String> employeeAlreadyExistException(EmployeeAlreadyExistException employeeAlreadyExistException) {
+        return new ResponseEntity<String>(employeeAlreadyExistException.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = EmployeeNotFoundException.class)
+    public ResponseEntity<String> employeeNotFoundException(EmployeeNotFoundException employeeNotFoundException) {
+        return new ResponseEntity<String>(employeeNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
