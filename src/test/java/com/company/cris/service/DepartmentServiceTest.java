@@ -46,8 +46,8 @@ public class DepartmentServiceTest {
                 LocalDate.of(2022, 01, 01),
                 LocalDate.of(2022, 12, 31) )).thenReturn(new BigDecimal(90000));
         Assertions.assertSame("GREEN", departmentService.getBudgetStatus(department.getId(),
-                LocalDate.of(2022, 01, 01),
-                LocalDate.of(2022, 12, 31)));
+                "2022-01-01",
+                "2022-12-31"));
     }
 
     @Test
@@ -71,8 +71,8 @@ public class DepartmentServiceTest {
                 LocalDate.of(2022, 12, 31) )).thenReturn(new BigDecimal(210000));
 
         Assertions.assertSame("YELLOW", departmentService.getBudgetStatus(department.getId(),
-                LocalDate.of(2022, 01, 01),
-                LocalDate.of(2022, 12, 31)));
+                "2022-01-01",
+                "2022-12-31"));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class DepartmentServiceTest {
                 LocalDate.of(2022, 12, 31) )).thenReturn(new BigDecimal(221000));
 
         Assertions.assertSame("RED", departmentService.getBudgetStatus(department.getId(),
-                LocalDate.of(2022, 01, 01),
-                LocalDate.of(2022, 12, 31)));
+                "2022-01-01",
+                "2022-12-31"));
     }
 }

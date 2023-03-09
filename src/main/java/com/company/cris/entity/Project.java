@@ -11,7 +11,6 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String uuid;
     private String name;
     private BigDecimal value;
     private BigDecimal cost;
@@ -25,20 +24,22 @@ public class Project {
 
     public Project() {}
 
+    public Project(String name, BigDecimal value, BigDecimal cost,
+                   LocalDate startDate, LocalDate endDate, Department department) {
+        this.name = name;
+        this.value = value;
+        this.cost = cost;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.department = department;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public String getName() {
