@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+
 @RestController
 @RequestMapping("/postcode")
 public class PostCodeController {
@@ -17,7 +20,7 @@ public class PostCodeController {
     private PostCodeService postCodeService;
 
     @RequestMapping(method = RequestMethod.GET, path = "/{postCode}")
-    public ResponseEntity<PostCodeResponse> getDetail(@PathVariable String postCode) {
+    public ResponseEntity<PostCodeResponse> getDetail(@PathVariable @Valid @NotEmpty String postCode) {
         return ResponseEntity.ok(postCodeService.get(postCode));
     }
 }

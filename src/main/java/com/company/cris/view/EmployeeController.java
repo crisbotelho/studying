@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> save(@RequestBody EmployeeRequest employeeRequest)
+    public ResponseEntity<String> save(@RequestBody @Valid EmployeeRequest employeeRequest)
             throws EmployeeAlreadyExistException{
         String uuid = employeeService.save(employeeRequest);
 
@@ -52,13 +53,4 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getByUuid(uuid));
     }
 
-    @ExceptionHandler(value = EmployeeAlreadyExistException.class)
-    public ResponseEntity<String> employeeAlreadyExistException(EmployeeAlreadyExistException employeeAlreadyExistException) {
-        return new ResponseEntity<String>(employeeAlreadyExistException.getMessage(), HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(value = EmployeeNotFoundException.class)
-    public ResponseEntity<String> employeeNotFoundException(EmployeeNotFoundException employeeNotFoundException) {
-        return new ResponseEntity<String>(employeeNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
-    }
 }
