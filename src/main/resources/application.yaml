@@ -5,7 +5,7 @@ spring:
   datasource:
     username: cris
     url: jdbc:mysql://localhost:3306/company
-    password: eamf593284
+    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,15 +13,18 @@ spring:
     host: localhost
     port: 6379
     password: Redis#2023!
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,env,beans,metrics
-  health:
-    circuitbreakers:
-      enabled: true
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,env,beans,metrics
+#  health:
+#    circuitbreakers:
+#      enabled: true
 
 resilience4j.circuitbreaker:
   configs:

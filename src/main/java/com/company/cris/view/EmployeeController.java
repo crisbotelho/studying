@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
@@ -28,8 +31,11 @@ public class EmployeeController {
     }
 
     @RequestMapping(path = "/department/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Employee>> listByIdDepartment(@PathVariable Long id)
-            throws EmployeeNotFoundException {
+    public ResponseEntity<List<Employee>> listByIdDepartment(@PathVariable
+                                                                 @Valid
+                                                                 @NotEmpty
+                                                                 @Pattern(regexp = "[0-9]") Long id)
+            throws EmployeeNotFoundException, ConstraintViolationException {
         List<Employee> employeeList = employeeService.listByIdDepartment(id);
 
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
